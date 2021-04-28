@@ -128,7 +128,7 @@ export class Cache {
             if (isInlineBase64Image(src) || useCORS) {
                 img.crossOrigin = 'anonymous';
             }
-            img.src = src;
+            img.src = /^data:image/.test(src) ? src : src + '?' + new Date().getTime();
             if (img.complete === true) {
                 // Inline XML images may fail to parse, throwing an Error later on
                 setTimeout(() => resolve(img), 500);
